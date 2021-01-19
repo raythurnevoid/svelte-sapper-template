@@ -8,5 +8,10 @@
 	"include": [
 		"webpack*.ts",
 		"build/**/*"
+	],
+	"exclude": [
+		"**/node_modules/*",
+		"__sapper__/*",
+		"static/*"
 	]
 }

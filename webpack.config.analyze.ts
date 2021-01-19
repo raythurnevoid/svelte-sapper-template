@@ -1,11 +1,8 @@
-import {
-	createClientConfig,
-	createServerConfig,
-	createServiceWorkerConfig,
-} from "./build/config";
+import { createClientConfig } from "./build/config";
 import path from "path";
+import type { Configuration } from "webpack";
 
-export default function conf(env) {
+export default function conf(env): Configuration {
 	if (!process.env.NODE_ENV) {
 		process.env.NODE_ENV = env?.production ? "production" : "development";
 	}

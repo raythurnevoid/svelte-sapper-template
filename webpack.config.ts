@@ -1,4 +1,9 @@
-import { createClientConfig, createServerConfig, createServiceWorkerConfig } from "./build/config";
+import type { Configuration } from "webpack";
+import {
+	createClientConfig,
+	createServerConfig,
+	createServiceWorkerConfig,
+} from "./build/config";
 
 function conf(env) {
 	if (!process.env.NODE_ENV) {
@@ -15,16 +20,14 @@ function conf(env) {
 
 	return {
 		client: {
-			...clientConfig
-		},
-
+			...clientConfig,
+		} as Configuration,
 		server: {
-			...serverConfig
-		},
-
+			...serverConfig,
+		} as Configuration,
 		serviceworker: {
-			...serviceWorkerConfig
-		},
+			...serviceWorkerConfig,
+		} as Configuration,
 	};
 }
 

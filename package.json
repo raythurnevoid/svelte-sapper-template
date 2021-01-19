@@ -1,5 +1,5 @@
 {
-	"name": "@raythurnevoid/sapper-template",
+	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "TODO",
 	"version": "0.0.1",
 	"scripts": {
@@ -28,6 +28,8 @@
 		"@types/compression": "^1.7.0",
 		"@types/polka": "^0.5.2",
 		"sapper": "https://github.com/raythurnevoid/sapper/releases/download/0.28.10.webpack5-fix-log/raythurnevoid-sapper-0.28.1-0.webpack5-fix-log.tgz",
-		"@raythurnevoid/svelte-template": "^0.0.8"
+		"@raythurnevoid/svelte-template": "^0.0.9",
+		"autoprefixer": "^10.2.3",
+		"copyfiles": "^2.4.1"
 	}
 }
