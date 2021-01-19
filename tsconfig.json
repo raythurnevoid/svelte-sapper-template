@@ -1,0 +1,16 @@
+{
+	"extends": "@raythurnevoid/svelte-template/tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"resolveJsonModule": true
+	},
+	"include": [
+		"src/**/*",
+		"src/node_modules/**/*"
+	],
+	"exclude": [
+		"node_modules/*",
+		"__sapper__/*",
+		"static/*"
+	]
+}

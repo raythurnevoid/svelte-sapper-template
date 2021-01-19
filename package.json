@@ -1,0 +1,25 @@
+{
+	"name": "@raythurnevoid/sapper-template",
+	"description": "TODO",
+	"version": "0.0.1",
+	"scripts": {
+		"clean": "del-cli dist",
+		"dev": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" ts-node node_modules/sapper/dist/cli.js dev",
+		"build": "sapper build",
+		"export": "sapper export",
+		"start": "node __sapper__/build",
+		"debug": "node --inspect node_modules/sapper/dist/cli.js dev",
+		"validate": "svelte-check --ignore src/node_modules/@sapper"
+	},
+	"dependencies": {
+		"compression": "^1.7.1",
+		"polka": "next",
+		"sirv": "^1.0.0"
+	},
+	"devDependencies": {
+		"@types/compression": "^1.7.0",
+		"@types/polka": "^0.5.2",
+		"sapper": "https://github.com/raythurnevoid/sapper/releases/download/0.28.10.webpack5-fix-log/raythurnevoid-sapper-0.28.1-0.webpack5-fix-log.tgz",
+		"@raythurnevoid/svelte-template": "^0.0.8"
+	}
+}
