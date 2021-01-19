@@ -3,13 +3,21 @@
 	"description": "TODO",
 	"version": "0.0.1",
 	"scripts": {
+		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
 		"clean": "del-cli dist",
 		"dev": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" ts-node node_modules/sapper/dist/cli.js dev",
 		"build": "sapper build",
+		"analyze": "npm run webpack -- --env analyzeBundle --config webpack.config.analyze.ts",
 		"export": "sapper export",
 		"start": "node __sapper__/build",
 		"debug": "node --inspect node_modules/sapper/dist/cli.js dev",
-		"validate": "svelte-check --ignore src/node_modules/@sapper"
+		"validate": "svelte-check --ignore src/node_modules/@sapper",
+		"clean-lib": "del-cli lib",
+		"copy": "copyfiles ./build/**/*.* package.json tsconfig.json webpack* svelte.config.js lib",
+		"tsc": "tsc -p tsconfig.lib.json",
+		"lib": "npm-run-all clean-lib copy tsc",
+		"prepackage": "npm run lib",
+		"package": "npm publish ./lib --access public"
 	},
 	"dependencies": {
 		"compression": "^1.7.1",

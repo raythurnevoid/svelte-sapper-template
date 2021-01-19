@@ -4,5 +4,18 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"typescript.tsdk": ".\\node_modules\\typescript\\lib",
+		"prettier.useTabs": true,
+		"prettier.singleQuote": false,
+		"editor.insertSpaces": false,
+		"editor.formatOnSave": true
+	},
+	"extensions": {
+		"recommendations": [
+			"svelte.svelte-vscode",
+			"esbenp.prettier-vscode",
+			"eamodio.gitlens"
+		],
+	}
 }

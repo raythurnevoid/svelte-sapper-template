@@ -1,0 +1,12 @@
+{
+	"extends": "./tsconfig.tsnode.json",
+	"compilerOptions": {
+		"outDir": "./lib",
+		"sourceMap": false,
+		"declaration": true
+	},
+	"include": [
+		"webpack*.ts",
+		"build/**/*"
+	]
+}
