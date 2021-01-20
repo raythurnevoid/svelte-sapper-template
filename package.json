@@ -1,7 +1,7 @@
 {
 	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "Svelte template with Sapper, Webpack, SCSS Modules and Typescript",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"scripts": {
 		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
 		"clean": "del-cli dist",
@@ -19,11 +19,14 @@
 		"prepackage": "npm run lib",
 		"package": "npm publish ./lib --access public"
 	},
+	"browserslist": [
+		"defaults and supports es6-module"
+	],
 	"dependencies": {
-		"compression": "^1.7.1",
+		"compression": "^1.7.4",
 		"polka": "next",
-		"sirv": "^1.0.0",
-		"@raythurnevoid/svelte-template": "^0.0.9",
+		"sirv": "^1.0.10",
+		"@raythurnevoid/svelte-template": "^0.0.10",
 		"sapper": "https://github.com/raythurnevoid/sapper/releases/download/0.28.10.webpack5-fix-log/raythurnevoid-sapper-0.28.1-0.webpack5-fix-log.tgz"
 	},
 	"devDependencies": {
