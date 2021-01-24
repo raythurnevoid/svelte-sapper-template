@@ -1,10 +1,10 @@
 // import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import {
 	tsLoaderRule,
-	mjsSapperFixLoaderRule,
 	svelteLoaderRule,
 	scssLoaderRule,
-	fileLoaderRule
+	fileLoaderRule,
+	mjsLoaderRule,
 } from "@raythurnevoid/svelte-template/build/module/rules";
 import type { BaseEnv } from "../types";
 import type { Configuration } from "webpack";
@@ -31,18 +31,16 @@ export function createClientConfig(env: BaseEnv): Configuration {
 		},
 		output: config.client.output(),
 		module: {
-			rules: [...baseConf.module.rules, mjsSapperFixLoaderRule()],
+			rules: [...baseConf.module.rules],
 		},
-		plugins: [
-			...plugins
-		]
-	}
+		plugins: [...plugins],
+	};
 }
 
 export function createServerConfig(env: BaseEnv): Configuration {
 	const baseConf: Configuration = createConfig({
 		...env,
-		server: true
+		server: true,
 	});
 
 	return {
@@ -53,15 +51,14 @@ export function createServerConfig(env: BaseEnv): Configuration {
 		output: config.server.output(),
 		resolve: {
 			...baseConf.resolve,
-			mainFields: ["svelte", "module", "main"]
+			mainFields: ["svelte", "module", "main"],
 		},
 		module: {
 			rules: [
 				tsLoaderRule({ env }),
-				svelteLoaderRule({ env, ssr: true }),
+				...svelteLoaderRule({ env, ssr: true }),
 				scssLoaderRule({ env }),
 				fileLoaderRule(),
-				mjsSapperFixLoaderRule()
 			],
 		},
 		externals: Object.keys(pkg.dependencies).concat("encoding"),
@@ -69,7 +66,7 @@ export function createServerConfig(env: BaseEnv): Configuration {
 		performance: {
 			hints: false, // it doesn't matter if server.js is large
 		},
-	}
+	};
 }
 
 export function createServiceWorkerConfig(env: BaseEnv): Configuration {
@@ -86,8 +83,8 @@ export function createServiceWorkerConfig(env: BaseEnv): Configuration {
 		},
 		output: config.serviceworker.output(),
 		module: {
-			rules: [tsLoaderRule({ env }), mjsSapperFixLoaderRule()],
+			rules: [tsLoaderRule({ env }), mjsLoaderRule()],
 		},
 		plugins: [],
-	}
+	};
 }

@@ -1,7 +1,7 @@
 {
 	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "Svelte template with Sapper, Webpack, SCSS Modules and Typescript",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"scripts": {
 		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
 		"clean": "del-cli dist",
@@ -10,7 +10,7 @@
 		"analyze": "npm run webpack -- --env analyzeBundle --config webpack.config.analyze.ts",
 		"export": "sapper export",
 		"start": "node __sapper__/build",
-		"debug": "node --inspect node_modules/sapper/dist/cli.js dev",
+		"debug": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" node --inspect -r ts-node/register -r tsconfig-paths/register node_modules/sapper/dist/cli.js dev",
 		"validate": "svelte-check --ignore src/node_modules/@sapper",
 		"clean-lib": "del-cli lib",
 		"copy": "copyfiles ./build/**/*.* package.json tsconfig.json webpack* svelte.config.js lib",
@@ -26,7 +26,7 @@
 		"compression": "^1.7.4",
 		"polka": "next",
 		"sirv": "^1.0.10",
-		"@raythurnevoid/svelte-template": "^0.0.10",
+		"@raythurnevoid/svelte-template": "^0.0.13",
 		"sapper": "https://github.com/raythurnevoid/sapper/releases/download/0.28.10.webpack5-fix-log/raythurnevoid-sapper-0.28.1-0.webpack5-fix-log.tgz"
 	},
 	"devDependencies": {
