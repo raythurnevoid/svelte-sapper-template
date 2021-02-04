@@ -1,13 +1,16 @@
 {
 	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "Svelte template with Sapper, Webpack, SCSS Modules and Typescript",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"scripts": {
 		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
 		"clean": "del-cli dist",
 		"dev": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" ts-node node_modules/sapper/dist/cli.js dev",
 		"build": "sapper build",
 		"analyze": "npm run webpack -- --env analyzeBundle --config webpack.config.analyze.ts",
+		"analyze:prod": "npm run analyze -- --env production",
+		"stats": "npm run webpack -- --config webpack.config.analyze.ts --json=stats.json",
+		"stats:prod": "npm run stats -- --env production",
 		"export": "sapper export",
 		"start": "node __sapper__/build",
 		"debug": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" node --inspect -r ts-node/register -r tsconfig-paths/register node_modules/sapper/dist/cli.js dev",
