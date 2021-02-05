@@ -32,5 +32,5 @@ function conf(env) {
 }
 
 export default conf({
-	production: process.env.NODE_ENV === "production" ? true : false,
+	production: process.env.NODE_ENV === "development" ? false : true,
 });
