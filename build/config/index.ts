@@ -57,7 +57,7 @@ export function createServerConfig(env: BaseEnv): Configuration {
 			rules: [
 				tsLoaderRule({ env }),
 				...svelteLoaderRule({ env, ssr: true }),
-				scssLoaderRule({ env }),
+				scssLoaderRule({ env, server: true }),
 				fileLoaderRule(),
 			],
 		},
