@@ -5,6 +5,7 @@ import {
 	scssLoaderRule,
 	fileLoaderRule,
 	mjsLoaderRule,
+	scssModulesLoaderRule,
 } from "@raythurnevoid/svelte-template/build/module/rules";
 import type { BaseEnv } from "../types";
 import type { Configuration } from "webpack";
@@ -58,6 +59,7 @@ export function createServerConfig(env: BaseEnv): Configuration {
 				tsLoaderRule({ env }),
 				...svelteLoaderRule({ env, ssr: true }),
 				scssLoaderRule({ env, server: true }),
+				scssModulesLoaderRule({ env, server: true }),
 				fileLoaderRule(),
 			],
 		},
