@@ -1,23 +1,21 @@
 // import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import {
 	tsLoaderRule,
-	svelteLoaderRule,
-	scssLoaderRule,
-	fileLoaderRule,
 	mjsLoaderRule,
-	scssModulesLoaderRule,
 } from "@raythurnevoid/svelte-template/build/module/rules";
-import type { BaseEnv } from "../types";
 import type { Configuration } from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { createConfig } from "@raythurnevoid/svelte-template/build/config";
+import type { SvelteTempalteConfigurationInput } from "@raythurnevoid/svelte-template/build/config";
 import config from "sapper/config/webpack.js";
 import pkg from "../../package.json";
 
-export function createClientConfig(env: BaseEnv): Configuration {
-	const baseConf: Configuration = createConfig({
-		...env,
-	});
+export function createClientConfig(
+	input: SvelteTempalteConfigurationInput
+): Configuration {
+	const { env } = input;
+
+	const baseConf: Configuration = createConfig(input);
 
 	const plugins = [];
 
@@ -38,10 +36,17 @@ export function createClientConfig(env: BaseEnv): Configuration {
 	};
 }
 
-export function createServerConfig(env: BaseEnv): Configuration {
+export function createServerConfig(
+	input: SvelteTempalteConfigurationInput
+): Configuration {
+	const { env } = input;
+
 	const baseConf: Configuration = createConfig({
-		...env,
-		server: true,
+		...input,
+		env: {
+			...env,
+			server: true,
+		},
 	});
 
 	return {
@@ -52,29 +57,20 @@ export function createServerConfig(env: BaseEnv): Configuration {
 		output: config.server.output(),
 		resolve: {
 			...baseConf.resolve,
-			mainFields: ["svelte", "module", "main"],
-		},
-		module: {
-			rules: [
-				tsLoaderRule({ env }),
-				...svelteLoaderRule({ env, ssr: true }),
-				scssLoaderRule({ env, server: true }),
-				scssModulesLoaderRule({ env, server: true }),
-				fileLoaderRule(),
-			],
 		},
 		externals: Object.keys(pkg.dependencies).concat("encoding"),
-		plugins: [],
 		performance: {
 			hints: false, // it doesn't matter if server.js is large
 		},
 	};
 }
 
-export function createServiceWorkerConfig(env: BaseEnv): Configuration {
-	const baseConf: Configuration = createConfig({
-		...env,
-	});
+export function createServiceWorkerConfig(
+	input: SvelteTempalteConfigurationInput
+): Configuration {
+	const { env } = input;
+
+	const baseConf: Configuration = createConfig(input);
 
 	return {
 		...baseConf,
