@@ -10,8 +10,7 @@ import config from "sapper/config/webpack.js";
 import pkg from "../../package.json";
 import {
 	bundleAnalyzerPlugin,
-	cleanWebpackPlugin,
-	copyPlugin,
+	cssExtractPlugin,
 } from "@raythurnevoid/svelte-template/build/plugins";
 
 export function createClientConfig(
@@ -93,7 +92,4 @@ export function createServiceWorkerConfig(
 		},
 		plugins: [],
 	};
-}
-function cssExtractPlugin(): WebpackPluginInstance {
-	throw new Error("Function not implemented.");
 }
