@@ -11,6 +11,7 @@ import pkg from "../../package.json";
 import {
 	bundleAnalyzerPlugin,
 	cssExtractPlugin,
+	cssMinimizerPlugin,
 } from "@raythurnevoid/svelte-template/build/plugins";
 
 export function createClientConfig(
@@ -22,7 +23,11 @@ export function createClientConfig(
 
 	const plugins: WebpackPluginInstance[] = [];
 
-	if (input.extractCss && !env.server) {
+	if (input.env.production) {
+		plugins.push(cssMinimizerPlugin());
+	}
+
+	if (input.extractCss) {
 		plugins.push(cssExtractPlugin());
 	}
 
