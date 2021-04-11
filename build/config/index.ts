@@ -3,12 +3,16 @@ import {
 	tsLoaderRule,
 	mjsLoaderRule,
 } from "@raythurnevoid/svelte-template/build/module/rules";
-import type { Configuration } from "webpack";
-import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import type { Configuration, WebpackPluginInstance } from "webpack";
 import { createConfig } from "@raythurnevoid/svelte-template/build/config";
 import type { SvelteTempalteConfigurationInput } from "@raythurnevoid/svelte-template/build/config";
 import config from "sapper/config/webpack.js";
 import pkg from "../../package.json";
+import {
+	bundleAnalyzerPlugin,
+	cleanWebpackPlugin,
+	copyPlugin,
+} from "@raythurnevoid/svelte-template/build/plugins";
 
 export function createClientConfig(
 	input: SvelteTempalteConfigurationInput
@@ -17,10 +21,14 @@ export function createClientConfig(
 
 	const baseConf: Configuration = createConfig(input);
 
-	const plugins = [];
+	const plugins: WebpackPluginInstance[] = [];
+
+	if (input.extractCss && !env.server) {
+		plugins.push(cssExtractPlugin());
+	}
 
 	if (env.analyzeBundle) {
-		plugins.push(new BundleAnalyzerPlugin());
+		plugins.push(bundleAnalyzerPlugin());
 	}
 
 	return {
@@ -85,4 +93,7 @@ export function createServiceWorkerConfig(
 		},
 		plugins: [],
 	};
+}
+function cssExtractPlugin(): WebpackPluginInstance {
+	throw new Error("Function not implemented.");
 }

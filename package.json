@@ -1,7 +1,7 @@
 {
 	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "Svelte template with Sapper, Webpack, SCSS Modules and Typescript",
-	"version": "0.0.21",
+	"version": "0.0.22",
 	"scripts": {
 		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
 		"clean": "del-cli dist",
