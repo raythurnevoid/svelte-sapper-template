@@ -14,9 +14,9 @@ function conf(env) {
 
 	delete process.env.TS_NODE_PROJECT;
 
-	const clientConfig = createClientConfig(env);
-	const serverConfig = createServerConfig(env);
-	const serviceWorkerConfig = createServiceWorkerConfig(env);
+	const clientConfig = createClientConfig({ env });
+	const serverConfig = createServerConfig({ env });
+	const serviceWorkerConfig = createServiceWorkerConfig({ env });
 
 	return {
 		client: {

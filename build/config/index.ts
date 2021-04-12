@@ -2,6 +2,10 @@
 import {
 	tsLoaderRule,
 	mjsLoaderRule,
+	svelteLoaderRule,
+	scssLoaderRule,
+	scssModulesLoaderRule,
+	fileLoaderRule,
 } from "@raythurnevoid/svelte-template/build/module/rules";
 import type { Configuration, WebpackPluginInstance } from "webpack";
 import { createConfig } from "@raythurnevoid/svelte-template/build/config";
@@ -42,7 +46,13 @@ export function createClientConfig(
 		},
 		output: config.client.output(),
 		module: {
-			rules: [...baseConf.module.rules],
+			rules: [
+				tsLoaderRule({ env }),
+				...svelteLoaderRule({ env, ssr: true }),
+				scssLoaderRule({ env }),
+				scssModulesLoaderRule({ env }),
+				fileLoaderRule(),
+			],
 		},
 		plugins: [...plugins],
 	};
@@ -51,15 +61,16 @@ export function createClientConfig(
 export function createServerConfig(
 	input: SvelteTempalteConfigurationInput
 ): Configuration {
-	const { env } = input;
-
-	const baseConf: Configuration = createConfig({
-		...input,
+	input = {
 		env: {
-			...env,
+			...input.env,
 			server: true,
 		},
-	});
+	};
+
+	const { env } = input;
+
+	const baseConf: Configuration = createConfig(input);
 
 	return {
 		...baseConf,
@@ -69,6 +80,24 @@ export function createServerConfig(
 		output: config.server.output(),
 		resolve: {
 			...baseConf.resolve,
+		},
+		module: {
+			rules: [
+				tsLoaderRule({
+					env,
+				}),
+				...svelteLoaderRule({
+					env,
+					ssr: true,
+				}),
+				scssLoaderRule({
+					env,
+				}),
+				scssModulesLoaderRule({
+					env,
+				}),
+				fileLoaderRule(),
+			],
 		},
 		externals: Object.keys(pkg.dependencies).concat("encoding"),
 		performance: {
