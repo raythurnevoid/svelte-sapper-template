@@ -1,3 +1,4 @@
+import type { BaseEnv } from "@raythurnevoid/svelte-template/build/types";
 import type { Configuration } from "webpack";
 import {
 	createClientConfig,
@@ -5,7 +6,7 @@ import {
 	createServiceWorkerConfig,
 } from "./build/config";
 
-function conf(env) {
+function conf(env: BaseEnv) {
 	if (!process.env.NODE_ENV) {
 		process.env.NODE_ENV = env?.production ? "production" : "development";
 	}
@@ -33,4 +34,5 @@ function conf(env) {
 
 export default conf({
 	production: process.env.NODE_ENV === "development" ? false : true,
-});
+	fancyProgress: true,
+} as BaseEnv);
