@@ -1,4 +1,4 @@
-import type { BaseEnv } from "@raythurnevoid/svelte-template/build/types";
+import type { BaseEnv } from "@raythurnevoid/svelte-template/cjs/build/types";
 import type { Configuration } from "webpack";
 import {
 	createClientConfig,

@@ -1,4 +1,4 @@
-import { createClientConfig } from "./build/config";
+import { createClientConfig } from "./build/config/index";
 import path from "path";
 import type { Configuration } from "webpack";
 
@@ -20,8 +20,8 @@ export default function conf(env): Configuration {
 		},
 		output: {
 			path: path.resolve("./__sapper__/dev/client"),
-			filename: "[hash]/[name].js",
-			chunkFilename: "[hash]/[name].[id].js",
+			filename: "[hash]/[name]",
+			chunkFilename: "[hash]/[name].[id]",
 			publicPath: "client/",
 		},
 	};

@@ -6,17 +6,17 @@ import {
 	scssLoaderRule,
 	scssModulesLoaderRule,
 	fileLoaderRule,
-} from "@raythurnevoid/svelte-template/build/module/rules";
+} from "@raythurnevoid/svelte-template/cjs/build/module/rules/index";
 import type { Configuration, WebpackPluginInstance } from "webpack";
-import { createConfig } from "@raythurnevoid/svelte-template/build/config";
-import type { SvelteTempalteConfigurationInput } from "@raythurnevoid/svelte-template/build/config";
-import config from "sapper/config/webpack.js";
+import { createConfig } from "@raythurnevoid/svelte-template/cjs/build/config/index";
+import type { SvelteTempalteConfigurationInput } from "@raythurnevoid/svelte-template/cjs/build/config/index";
+import config from "sapper/config/webpack";
 import pkg from "../../package.json";
 import {
 	bundleAnalyzerPlugin,
 	cssExtractPlugin,
 	cssMinimizerPlugin,
-} from "@raythurnevoid/svelte-template/build/plugins";
+} from "@raythurnevoid/svelte-template/cjs/build/plugins/index";
 
 export function createClientConfig(
 	input: SvelteTempalteConfigurationInput

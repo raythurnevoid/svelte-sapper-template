@@ -1,11 +1,20 @@
 {
 	"name": "@raythurnevoid/svelte-sapper-template",
 	"description": "Svelte template with Sapper, Webpack, SCSS Modules and Typescript",
-	"version": "0.0.32",
+	"version": "0.0.33",
 	"scripts": {
-		"webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" webpack",
+		"clean-lib": "del-cli lib",
+		"copy": "copyfiles ./build/**/*.* package.json tsconfig.json webpack* svelte.config.js lib",
+		"tsc": "tsc -p tsconfig.lib.json",
+		"lib": "npm-run-all clean-lib copy tsc",
+		"prepackage": "npm run lib",
+		"package": "npm publish ./lib --access public",
+		"env": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\"",
+		"ts-node": "npm run env -- node -r ts-node/register -r tsconfig-paths/register --",
+		"ts-node:inspect": "npm run ts-node -- --inspect --",
+		"webpack": "npm run env -- webpack",
 		"clean": "del-cli dist",
-		"dev": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" ts-node node_modules/sapper/dist/cli.js dev",
+		"dev": "npm run ts-node -- node_modules/sapper/dist/cli.js dev",
 		"build": "sapper build",
 		"analyze": "npm run webpack -- --env analyzeBundle --env fancyProgress --config webpack.config.analyze.ts",
 		"analyze:prod": "npm run analyze -- --env production --env fancyProgress ",
@@ -14,27 +23,21 @@
 		"export": "sapper export",
 		"start": "node __sapper__/build",
 		"debug": "cross-env TS_NODE_PROJECT=\"tsconfig.tsnode.json\" node --inspect -r ts-node/register -r tsconfig-paths/register node_modules/sapper/dist/cli.js dev",
-		"validate": "svelte-check --ignore src/node_modules/@sapper",
-		"clean-lib": "del-cli lib",
-		"copy": "copyfiles ./build/**/*.* package.json tsconfig.json webpack* svelte.config.js lib",
-		"tsc": "tsc -p tsconfig.lib.json",
-		"lib": "npm-run-all clean-lib copy tsc",
-		"prepackage": "npm run lib",
-		"package": "npm publish ./lib --access public"
+		"validate": "svelte-check --ignore src/node_modules/@sapper"
 	},
 	"browserslist": [
-		"defaults and supports es6-module"
+		"last 1 year and >5% and supports es6-module"
 	],
 	"dependencies": {
-		"@raythurnevoid/svelte-template": "^0.0.39",
+		"@raythurnevoid/svelte-template": "^0.1.4",
 		"compression": "^1.7.4",
-		"polka": "next",
+		"express": "^4.17.1",
 		"sapper": "https://github.com/raythurnevoid/sapper/releases/download/0.29.1.webpack5-fix-log/raythurnevoid-sapper-0.29.1.webpack5-fix-log.tgz",
 		"sirv": "^1.0.11"
 	},
 	"devDependencies": {
 		"@types/compression": "^1.7.0",
-		"@types/polka": "^0.5.2",
+		"@types/express": "^4.17.12",
 		"autoprefixer": "^10.2.5",
 		"copyfiles": "^2.4.1"
 	}
