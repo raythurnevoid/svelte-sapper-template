@@ -6,24 +6,24 @@ import {
 	scssLoaderRule,
 	scssModulesLoaderRule,
 	fileLoaderRule,
-} from "@raythurnevoid/svelte-template/cjs/build/module/rules/index";
+} from "@raythurnevoid/svelte-template/build/module/rules/index.js";
 import type { Configuration, WebpackPluginInstance } from "webpack";
-import { createConfig } from "@raythurnevoid/svelte-template/cjs/build/config/index";
-import type { SvelteTempalteConfigurationInput } from "@raythurnevoid/svelte-template/cjs/build/config/index";
+import { createConfig } from "@raythurnevoid/svelte-template/build/config/index.js";
+import type { SvelteTemplateConfigurationInput } from "@raythurnevoid/svelte-template/build/config/index.js";
 import config from "sapper/config/webpack";
 import pkg from "../../package.json";
 import {
 	bundleAnalyzerPlugin,
 	cssExtractPlugin,
 	cssMinimizerPlugin,
-} from "@raythurnevoid/svelte-template/cjs/build/plugins/index";
+} from "@raythurnevoid/svelte-template/build/plugins/index.js";
 
-export function createClientConfig(
-	input: SvelteTempalteConfigurationInput
-): Configuration {
+export async function createClientConfig(
+	input: SvelteTemplateConfigurationInput
+): Promise<Configuration> {
 	const { env } = input;
 
-	const baseConf: Configuration = createConfig(input);
+	const baseConf: Configuration = await createConfig(input);
 
 	const plugins: WebpackPluginInstance[] = [];
 
@@ -48,7 +48,7 @@ export function createClientConfig(
 		module: {
 			rules: [
 				tsLoaderRule({ env }),
-				...svelteLoaderRule({ env, ssr: true }),
+				...await svelteLoaderRule({ env, ssr: true }),
 				scssLoaderRule({ env }),
 				scssModulesLoaderRule({ env }),
 				fileLoaderRule(),
@@ -58,9 +58,9 @@ export function createClientConfig(
 	};
 }
 
-export function createServerConfig(
-	input: SvelteTempalteConfigurationInput
-): Configuration {
+export async function createServerConfig(
+	input: SvelteTemplateConfigurationInput
+): Promise<Configuration> {
 	input = {
 		env: {
 			...input.env,
@@ -70,7 +70,7 @@ export function createServerConfig(
 
 	const { env } = input;
 
-	const baseConf: Configuration = createConfig(input);
+	const baseConf: Configuration = await createConfig(input);
 
 	return {
 		...baseConf,
@@ -86,7 +86,7 @@ export function createServerConfig(
 				tsLoaderRule({
 					env,
 				}),
-				...svelteLoaderRule({
+				...await svelteLoaderRule({
 					env,
 					ssr: true,
 				}),
@@ -106,12 +106,12 @@ export function createServerConfig(
 	};
 }
 
-export function createServiceWorkerConfig(
-	input: SvelteTempalteConfigurationInput
-): Configuration {
+export async function createServiceWorkerConfig(
+	input: SvelteTemplateConfigurationInput
+): Promise<Configuration> {
 	const { env } = input;
 
-	const baseConf: Configuration = createConfig(input);
+	const baseConf: Configuration = await createConfig(input);
 
 	return {
 		...baseConf,

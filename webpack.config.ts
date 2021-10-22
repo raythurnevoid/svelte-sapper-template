@@ -6,7 +6,7 @@ import {
 	createServiceWorkerConfig,
 } from "./build/config";
 
-function conf(env: BaseEnv) {
+async function conf(env: BaseEnv) {
 	if (!process.env.NODE_ENV) {
 		process.env.NODE_ENV = env?.production ? "production" : "development";
 	}
@@ -15,9 +15,9 @@ function conf(env: BaseEnv) {
 
 	delete process.env.TS_NODE_PROJECT;
 
-	const clientConfig = createClientConfig({ env });
-	const serverConfig = createServerConfig({ env });
-	const serviceWorkerConfig = createServiceWorkerConfig({ env });
+	const clientConfig = await createClientConfig({ env });
+	const serverConfig = await createServerConfig({ env });
+	const serviceWorkerConfig = await createServiceWorkerConfig({ env });
 
 	return {
 		client: {
@@ -32,7 +32,8 @@ function conf(env: BaseEnv) {
 	};
 }
 
-export default conf({
-	production: process.env.NODE_ENV === "development" ? false : true,
-	fancyProgress: true,
-} as BaseEnv);
+export default async () =>
+	conf({
+		production: process.env.NODE_ENV === "development" ? false : true,
+		fancyProgress: true,
+	} as BaseEnv);
